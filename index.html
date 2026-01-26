@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>CV Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body class="theme-purple">
+
+<header>
+  <h1>CV Studio</h1>
+
+  <div class="controls">
+    <button onclick="setLayout('one')">1 Columna</button>
+    <button onclick="setLayout('two')">2 Columnas</button>
+
+    <select onchange="setTheme(this.value)">
+      <option value="purple">Purple</option>
+      <option value="blue">Blue</option>
+    </select>
+
+    <select onchange="setLanguage(this.value)">
+      <option value="es">ES</option>
+      <option value="en">EN</option>
+    </select>
+
+    <button onclick="downloadPDF()">PDF</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= FORM ================= -->
+  <section class="form">
+
+    <h2>Datos personales</h2>
+    <label>Foto de perfil</label>
+    <input type="file" accept="image/*" onchange="loadPhoto(event)">
+
+
+    <!-- FOTO DE PERFIL -->
+    
+
+    <input placeholder="Nombre" oninput="update('name', this.value)">
+    <input placeholder="Título profesional" oninput="update('title', this.value)">
+    <input placeholder="Email" oninput="update('email', this.value)">
+    <input placeholder="Teléfono" oninput="update('phone', this.value)">
+    <input placeholder="Ubicación" oninput="update('location', this.value)">
+
+    <h2>Perfil</h2>
+    <textarea placeholder="Resumen profesional" oninput="update('summary', this.value)"></textarea>
+
+    <h2>Experiencia</h2>
+    <textarea placeholder="Experiencia laboral" oninput="update('experience', this.value)"></textarea>
+
+    <h2>Educación</h2>
+    <textarea placeholder="Educación" oninput="update('education', this.value)"></textarea>
+
+    <h2>Habilidades</h2>
+    <textarea placeholder="Habilidades" oninput="update('skills', this.value)"></textarea>
+
+    <h2>Proyectos</h2>
+    <textarea placeholder="Proyectos destacados" oninput="update('projects', this.value)"></textarea>
+
+  </section>
+
+  <!-- ================= PREVIEW ================= -->
+  <section id="cv" class="cv one-column">
+    <div class="cv-bg-shape"></div>
+
+    <div class="cv-header">
+      <div class="photo-wrapper">
+        <div class="photo-bg"></div>
+        <img id="photoPreview">
+      </div>
+
+      <div>
+        <h1 id="namePreview">Tu Nombre</h1>
+        <h2 id="titlePreview">Tu profesión</h2>
+        <p class="contact">
+          <span id="emailPreview"></span> ·
+          <span id="phonePreview"></span> ·
+          <span id="locationPreview"></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="cv-content">
+      <div class="section">
+        <h3 data-es="Perfil" data-en="Profile"></h3>
+        <p id="summaryPreview"></p>
+      </div>
+
+      <div class="section">
+        <h3 data-es="Experiencia" data-en="Experience"></h3>
+        <p id="experiencePreview"></p>
+      </div>
+
+      <div class="section">
+        <h3 data-es="Educación" data-en="Education"></h3>
+        <p id="educationPreview"></p>
+      </div>
+
+      <div class="section">
+        <h3 data-es="Habilidades" data-en="Skills"></h3>
+      <div id="skillsPreview" class="skills"></div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

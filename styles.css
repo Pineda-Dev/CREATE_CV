@@ -1,0 +1,237 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f2f2f2;
+}
+
+/* ================= HEADER ================= */
+header {
+  background: var(--primary);
+  color: white;
+  padding: 15px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ================= LAYOUT ================= */
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.form {
+  background: white;
+  padding: 20px;
+}
+
+.form input,
+.form textarea,
+.form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+/* ================= CV ================= */
+.cv {
+  background: white;
+  padding: 30px;
+  color: #222;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.cv-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--primary);
+  background: #eee;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cv h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.cv h2 {
+  margin: 5px 0;
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.contact {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ================= SECTIONS ================= */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  margin: 25px 0;
+}
+
+.section h3 {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.section p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ================= CARDS ================= */
+.card {
+  background: #f8f8f8;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.card h4 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.card span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ================= SKILLS ================= */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill {
+  background: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* ================= THEMES ================= */
+.theme-purple { --primary: #6a0dad; }
+.theme-blue   { --primary: #1e88e5; }
+.theme-green  { --primary: #2e7d32; }
+.theme-black  { --primary: #111; }
+
+/* ================= TEMPLATES ================= */
+.template-modern {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.template-creative {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.template-executive {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+.template-executive h3 {
+  color: var(--primary);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+.cv {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Forma diagonal esquina */
+.cv-bg-shape {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 250px;
+  background: var(--primary);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  opacity: 0.15;
+}
+
+/* FOTO con fondo */
+.photo-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.photo-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--primary);
+  border-radius: 20px;
+  transform: rotate(-6deg);
+}
+
+.photo-wrapper img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* LISTÓN LATERAL (2 columnas) */
+.cv.two-column {
+  display: grid;
+  grid-template-columns: 35% 65%;
+}
+
+.cv.two-column .cv-header {
+  grid-column: span 2;
+}
+
+.cv.two-column .cv-content {
+  display: contents;
+}
+
+.cv.two-column .section:first-child {
+  background: var(--primary);
+  color: white;
+  padding: 20px;
+}
+
+.cv.two-column .section:first-child h3 {
+  color: white;
+}
