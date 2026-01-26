@@ -1,237 +1,162 @@
+/* ================= RESET Y BASES ================= */
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  -webkit-print-color-adjust: exact; /* Importante para que Chrome imprima colores de fondo */
+  print-color-adjust: exact;
 }
 
 body {
   margin: 0;
-  background: #f2f2f2;
+  padding: 0;
+  background: #e9e9e9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
-/* ================= HEADER ================= */
+/* ================= INTERFAZ (SOLO PANTALLA) ================= */
 header {
-  background: var(--primary);
+  background: #2c3e50;
   color: white;
-  padding: 15px;
-}
-
-.controls {
+  padding: 15px 20px;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-/* ================= LAYOUT ================= */
-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
-}
-
-.form {
-  background: white;
-  padding: 20px;
-}
-
-.form input,
-.form textarea,
-.form select {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-/* ================= CV ================= */
-.cv {
-  background: white;
-  padding: 30px;
-  color: #222;
-  font-family: "Segoe UI", sans-serif;
-}
-
-.cv-header {
-  display: flex;
-  gap: 20px;
+  justify-content: space-between;
   align-items: center;
 }
 
-.photo {
-  width: 120px;
-  height: 120px;
+.controls button {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.controls button:hover { background: #219150; }
+
+main {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  max-width: 1600px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.form {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: sticky; /* Mantiene el formulario visible al bajar */
+  top: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.form h2 { font-size: 16px; margin-top: 20px; border-bottom: 2px solid #eee; padding-bottom: 5px; color: #2c3e50; }
+.form input, .form textarea { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; }
+
+/* ================= DOCUMENTO CV (VISTA PREVIA Y PDF) ================= */
+.cv-document {
+  /* Dimensiones visuales en pantalla */
+  width: 210mm; /* Ancho exacto A4 */
+  min-height: 297mm; /* Alto mínimo A4 */
+  background-color: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  
+  /* TRUCO CLAVE: El fondo dibuja la barra lateral. 
+     Así, si el CV crece a 2 páginas, la barra azul continúa. */
+  background-image: linear-gradient(to right, #2C3E50 32%, #ffffff 32%);
+  
+  display: flex; /* Usamos Flex en lugar de Grid para mejor flujo de página */
+  flex-direction: row;
+}
+
+/* Columna Izquierda (Contenido) */
+.cv-sidebar {
+  width: 32%;
+  padding: 30px 20px;
+  color: white;
+}
+
+/* Columna Derecha (Contenido) */
+.cv-main {
+  width: 68%;
+  padding: 40px;
+}
+
+/* --- ESTILOS INTERNOS --- */
+.photo-container {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 30px auto;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid var(--primary);
-  background: #eee;
+  border: 4px solid white;
+  background: #95a5a6;
+}
+.photo-container img { width: 100%; height: 100%; object-fit: cover; }
+
+.sidebar-section { margin-bottom: 30px; break-inside: avoid; /* Evita que se parta a la mitad */ }
+.sidebar-section h3 { color: #1abc9c; text-transform: uppercase; font-size: 16px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; margin-bottom: 15px; }
+.contact-item { font-size: 13px; margin-bottom: 10px; word-break: break-word; }
+.skills-text { font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
+
+.main-header { margin-bottom: 30px; border-bottom: 2px solid #2C3E50; padding-bottom: 20px; }
+.main-header h1 { color: #2C3E50; font-size: 28px; text-transform: uppercase; margin: 0 0 5px 0; line-height: 1; }
+.main-header h2 { color: #7f8c8d; font-size: 18px; font-weight: 400; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+
+/* Bloques de contenido */
+.section-block {
+  margin-bottom: 25px;
+  break-inside: avoid; /* CLAVE: Evita que un bloque de experiencia quede mitad en una página y mitad en otra */
 }
 
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.section-block h3 { color: #2C3E50; font-size: 16px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; border-left: 5px solid #1abc9c; padding-left: 10px; }
+.section-block p { color: #444; font-size: 14px; line-height: 1.6; white-space: pre-wrap; margin: 0; text-align: justify; }
 
-.cv h1 {
-  margin: 0;
-  font-size: 32px;
-}
+/* ================= MEDIA PRINT (LO QUE HACE LA MAGIA) ================= */
+@media print {
+  /* Ocultamos todo lo que no sea el CV */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Hacemos visible solo el CV */
+  .cv-document, .cv-document * {
+    visibility: visible;
+  }
 
-.cv h2 {
-  margin: 5px 0;
-  font-size: 18px;
-  color: var(--primary);
-}
+  /* Posicionamos el CV en la esquina absoluta 0,0 del papel */
+  .cv-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    box-shadow: none; /* Quitamos la sombra en el papel */
+    min-height: auto; /* Dejamos que la altura sea natural */
+  }
 
-.contact {
-  font-size: 14px;
-  color: #555;
-}
-
-/* ================= SECTIONS ================= */
-hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--primary), transparent);
-  margin: 25px 0;
-}
-
-.section h3 {
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
-  color: var(--primary);
-}
-
-.section p {
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-/* ================= CARDS ================= */
-.card {
-  background: #f8f8f8;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.card h4 {
-  margin: 0;
-  font-size: 15px;
-}
-
-.card span {
-  font-size: 13px;
-  color: #666;
-}
-
-/* ================= SKILLS ================= */
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skill {
-  background: var(--primary);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-/* ================= THEMES ================= */
-.theme-purple { --primary: #6a0dad; }
-.theme-blue   { --primary: #1e88e5; }
-.theme-green  { --primary: #2e7d32; }
-.theme-black  { --primary: #111; }
-
-/* ================= TEMPLATES ================= */
-.template-modern {
-  font-family: "Segoe UI", sans-serif;
-}
-
-.template-creative {
-  display: grid;
-  grid-template-columns: 30% 70%;
-}
-
-.template-executive {
-  background: #121212;
-  color: #e0e0e0;
-}
-
-.template-executive h3 {
-  color: var(--primary);
-}
-
-/* ================= RESPONSIVE ================= */
-@media (max-width: 900px) {
-  main {
-    grid-template-columns: 1fr;
+  /* Configuramos la página sin márgenes automáticos para controlar nosotros el diseño */
+  @page {
+    size: A4;
+    margin: 0; /* Sin margen blanco de impresora */
   }
 }
-.cv {
-  position: relative;
-  overflow: hidden;
-}
 
-/* Forma diagonal esquina */
-.cv-bg-shape {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: 250px;
-  background: var(--primary);
-  clip-path: polygon(100% 0, 0 0, 100% 100%);
-  opacity: 0.15;
-}
-
-/* FOTO con fondo */
-.photo-wrapper {
-  position: relative;
-  width: 120px;
-  height: 120px;
-}
-
-.photo-bg {
-  position: absolute;
-  inset: 0;
-  background: var(--primary);
-  border-radius: 20px;
-  transform: rotate(-6deg);
-}
-
-.photo-wrapper img {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-/* LISTÓN LATERAL (2 columnas) */
-.cv.two-column {
-  display: grid;
-  grid-template-columns: 35% 65%;
-}
-
-.cv.two-column .cv-header {
-  grid-column: span 2;
-}
-
-.cv.two-column .cv-content {
-  display: contents;
-}
-
-.cv.two-column .section:first-child {
-  background: var(--primary);
-  color: white;
-  padding: 20px;
-}
-
-.cv.two-column .section:first-child h3 {
-  color: white;
+/* Responsive para celulares (Solo vista pantalla) */
+@media screen and (max-width: 900px) {
+  main { flex-direction: column; }
+  .cv-document { 
+    width: 100%; 
+    flex-direction: column;
+    background-image: none; /* Quitamos la barra lateral en celular */
+  }
+  .cv-sidebar { width: 100%; background: #2C3E50; }
+  .cv-main { width: 100%; }
 }
